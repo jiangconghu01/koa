@@ -1,5 +1,5 @@
 const router = require('koa-router')()
-
+const insert = require('../db/insert.js');
 router.get('/', async (ctx, next) => {
   global.console.log('this is index request');
   ctx.cookies.set('username','jiangconghu')
@@ -17,6 +17,11 @@ router.get('/json', async (ctx, next) => {
     title: 'koa2 json',
     cookie:ctx.cookies.get('username')
   }
+})
+router.get('/mongo',async(ctx,next)=>{
+  const re = await insert();
+  console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh------------------------');
+ctx.body = re;
 })
 router.get('/test',async(ctx,next)=>{
   global.console.log('test',new Date().getTime());
