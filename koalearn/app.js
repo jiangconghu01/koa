@@ -9,10 +9,11 @@ const mid =require('./middleware/mid.js')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
+const db = require('./db/db.js')
 
 // error handler
 onerror(app)
-
+db();
 // middlewares
 app.use(mid())
 app.use(bodyparser({

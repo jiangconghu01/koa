@@ -7,5 +7,45 @@
   <body>
     <h1><%= title %></h1>
     <p>EJS Welcome to <%= title %></p>
+    <form action="/setuser" method="post">
+      姓名：　<input type="text" name="usr"><br>
+      密码：　<input type="password" name="pas"><br>
+      <input type="submit" value="提交">
+    </form>
+    <button id="get">获取数据</button>
+    <button id="update">更新密码</button>
+    <div id="data"></div>
   </body>
+  <script>
+    const bu =document.querySelector('#get')
+    const up =document.querySelector('#update')
+    bu.addEventListener('click',function(){
+      const a = document.querySelector('[name=usr]').value;
+      fetch('/getuser?usr='+a).then(((res)=>{
+        document.querySelector('#data').innerHTML=res;
+      }))
+    })
+    up.addEventListener('click',function(){
+      const a = document.querySelector('[name=usr]').value;
+      const p = document.querySelector('[name=pas]').value;
+      const data ={
+        usr:a,
+        pas:p
+      }
+      fetch('/updateuser',{
+    body: JSON.stringify(data), // must match 'Content-Type' header
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, same-origin, *omit
+    headers: {
+      'content-type': 'application/json'
+    },
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, cors, *same-origin
+    redirect: 'follow', // manual, *follow, error
+    referrer: 'no-referrer', // *client, no-referrer
+  }).then(((res)=>{
+        document.querySelector('#data').innerHTML=res;
+      }))
+    })
+  </script>
 </html>

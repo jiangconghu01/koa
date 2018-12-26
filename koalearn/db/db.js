@@ -1,5 +1,9 @@
 // 引入mongoose
 var mongoose = require("mongoose");
+
+// 将mongoose推出
+ 
+module.exports = ()=>{
  
 // 连接数据库
 mongoose.connect("mongodb://127.0.0.1:27017/demo");
@@ -18,7 +22,4 @@ mongoose.connection.on("open", function(){
 mongoose.connection.on("disconnected", function(){
     console.log("数据库断开");
 })
- 
-// 将mongoose推出
- 
-module.exports = mongoose;
+};
